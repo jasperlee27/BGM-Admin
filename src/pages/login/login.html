@@ -1,0 +1,58 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="image-center">
+    <!-- <ion-img width="200" height="200" src="../assets/imgs/BGM_Logo.png" style=background:transparent></ion-img> -->
+  </div>
+
+  <div [class.invalid-login]="showInvalidLogin">
+    <ion-grid>
+      <!-- username -->
+      <ion-row>
+        <ion-col col-12 col-md-8 offset-md-2>
+          <ion-item no-lines id="rounded">
+            <ion-label floating primary color="secondary">
+              <ion-icon name="person"></ion-icon> Username
+            </ion-label>
+            <ion-input [(ngModel)]="usernameInput" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- password-->
+      <ion-row>
+        <ion-col col-12 col-md-8 offset-md-2>
+          <ion-item no-lines id="rounded">
+            <ion-label floating primary color="secondary">
+              <ion-icon name="lock"></ion-icon> Password
+            </ion-label>
+            <ion-input [(ngModel)]="passwordInput" [type]="passwordType" clearOnEdit="false"></ion-input>
+            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" color="secondary" (click)='showHide()'></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 text-center>
+          <button ion-button (click)="login()" small color="secondary" style="color:rgb(0, 0, 0); font-size:20px; font-weight: 800">LOGIN</button>
+        </ion-col>
+      </ion-row>
+
+      <div class="invalid-login" *ngIf="showInvalidLogin">
+        INVALID LOGIN/PASSWORD!
+      </div>
+
+    </ion-grid>
+  </div>
+</ion-content>
