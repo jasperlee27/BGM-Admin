@@ -21,15 +21,16 @@ export class DrawBtcWinnerPage {
   selectedUser;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, private auth: GlobalAuthProvider, private alertCtrl: AlertController) {
-    
+
   }
 
   //going to enter call post to retrieve list
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.potentialWinners = new Array<any>();
     this.dataProvider.postPotentialWinnersList(this.auth.getAccId(), 'BTC').subscribe(data => {
       //parse response from server SUCCESS
       console.log("Get potential winners successfully");
+      this.gameId = data.gameId;
 
       for (var i = 0; i < data.data.length; i++) {
         var user = {
@@ -66,8 +67,43 @@ export class DrawBtcWinnerPage {
     console.log('ionViewDidLoad DrawBtcWinnerPage');
   }
 
-  itemTapped($event, user){
+  itemTapped($event, user) {
     console.log(user.username);
-    this.selectedUser= user.username;
+    this.selectedUser = user.username;
+  }
+
+  selectWinner() {
+    //winner will be current selected user
+    console.log("To post winner with " + this.selectedUser + " with gameId " + this.gameId);
+    this.dataProvider.postChooseGame1Winner(this.auth.getAccId(), this.gameId, this.selectedUser).subscribe(data => {
+      //parse response from server SUCCESS
+      console.log("Selected winner success");
+      let alert = this.alertCtrl.create({
+        title: data.message.toUpperCase(),
+        subTitle: 'Selected winner is ' + data.user + " with winning ticket number " + data.winningNo +".",
+        buttons: ['OK']
+      });
+
+      alert.present();
+    },
+      err => {
+        if (err.status === 0) {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'Server cannot be reached at this time. <br> Please try again later',
+            buttons: ['OK']
+          });
+
+          alert.present();
+          console.log("Hit Error 0");
+        }
+
+        else {
+          console.log("Error occured while selecting winner");
+        }
+
+        console.log(err);
+      });
+
   }
 }
