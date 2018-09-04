@@ -12,6 +12,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { DataProvider } from '../providers/data/data';
 import { GlobalAuthProvider } from '../providers/global-auth/global-auth';
+import { JackpotPage } from '../pages/jackpot/jackpot';
+import { HashingPage } from '../pages/hashing/hashing';
+import { BoptionsPage } from '../pages/boptions/boptions';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { GlobalAuthProvider } from '../providers/global-auth/global-auth';
     LoginPage,
     HomePage,
     ListPage,
+    JackpotPage,
+    HashingPage,
+    BoptionsPage
   
   ],
   imports: [
@@ -32,7 +38,9 @@ import { GlobalAuthProvider } from '../providers/global-auth/global-auth';
     LoginPage,
     HomePage,
     ListPage,
- 
+    JackpotPage,
+    HashingPage,
+    BoptionsPage
   ],
   providers: [
     StatusBar,

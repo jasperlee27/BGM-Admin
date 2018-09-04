@@ -7,6 +7,9 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { GlobalAuthProvider } from '../providers/global-auth/global-auth';
+import { JackpotPage } from '../pages/jackpot/jackpot';
+import { HashingPage } from '../pages/hashing/hashing';
+import { BoptionsPage } from '../pages/boptions/boptions';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +27,9 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'New List', component: ListPage },
+      { title: 'Jackpot', component: JackpotPage },
+      { title: 'Hashing', component: HashingPage },
+      { title: 'Options', component: BoptionsPage },
       { title: 'Logout', component: null }
     ];
 
