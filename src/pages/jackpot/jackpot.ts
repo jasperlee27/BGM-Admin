@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
 import { GlobalAuthProvider } from '../../providers/global-auth/global-auth';
+import { DrawBtcWinnerPage } from '../draw-btc-winner/draw-btc-winner';
 
 /**
  * Generated class for the JackpotPage page.
@@ -72,5 +73,9 @@ export class JackpotPage {
 
   chooseWinner(type: String) {
     console.log("choosing winner of type " + type);
+
+    if (type==='BTC'){
+      this.navCtrl.push(DrawBtcWinnerPage);
+    }
   }
 }

@@ -15,6 +15,7 @@ import { GlobalAuthProvider } from '../providers/global-auth/global-auth';
 import { JackpotPage } from '../pages/jackpot/jackpot';
 import { HashingPage } from '../pages/hashing/hashing';
 import { BoptionsPage } from '../pages/boptions/boptions';
+import { DrawBtcWinnerPage } from '../pages/draw-btc-winner/draw-btc-winner';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { BoptionsPage } from '../pages/boptions/boptions';
     HomePage,
     ListPage,
     JackpotPage,
+    DrawBtcWinnerPage,
     HashingPage,
     BoptionsPage
   
@@ -39,6 +41,7 @@ import { BoptionsPage } from '../pages/boptions/boptions';
     HomePage,
     ListPage,
     JackpotPage,
+    DrawBtcWinnerPage,
     HashingPage,
     BoptionsPage
   ],
