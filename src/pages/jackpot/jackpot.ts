@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { DataProvider } from '../../providers/data/data';
 import { GlobalAuthProvider } from '../../providers/global-auth/global-auth';
 import { DrawBtcWinnerPage } from '../draw-btc-winner/draw-btc-winner';
+import { DrawEthWinnerPage } from '../draw-eth-winner/draw-eth-winner';
 
 /**
  * Generated class for the JackpotPage page.
@@ -76,6 +77,14 @@ export class JackpotPage {
 
     if (type==='BTC'){
       this.navCtrl.push(DrawBtcWinnerPage);
+    }
+
+    else if (type==='ETH'){
+      this.navCtrl.push(DrawEthWinnerPage);
+    }
+
+    else{
+      console.log("Type not specified, should not come here");
     }
   }
 }

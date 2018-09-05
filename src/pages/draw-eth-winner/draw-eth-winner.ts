@@ -1,0 +1,110 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data';
+import { GlobalAuthProvider } from '../../providers/global-auth/global-auth';
+
+/**
+ * Generated class for the DrawEthWinnerPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-draw-eth-winner',
+  templateUrl: 'draw-eth-winner.html',
+})
+export class DrawEthWinnerPage {
+  gameId;
+  potentialWinners: Array<any>;
+  selectedUser;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, private auth: GlobalAuthProvider, private alertCtrl: AlertController) {
+
+  }
+
+  //going to enter call post to retrieve list
+  ionViewWillEnter() {
+    this.potentialWinners = new Array<any>();
+    this.dataProvider.postPotentialWinnersList(this.auth.getAccId(), 'ETH').subscribe(data => {
+      //parse response from server SUCCESS
+      console.log("Get potential winners successfully");
+      this.gameId = data.gameId;
+
+      for (var i = 0; i < data.data.length; i++) {
+        var user = {
+          "username": data.data[i]._id,
+          "count": data.data[i].count,
+        }
+        //push array
+        this.potentialWinners.push(user);
+      }
+    },
+      err => {
+        if (err.status === 0) {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'Server cannot be reached at this time. <br> Please try again later',
+            buttons: ['OK']
+          });
+
+          alert.present();
+          console.log("Hit Error 0");
+        }
+
+        else {
+          console.log("Error occured while getting potential winners list");
+        }
+
+        console.log(err);
+      });
+
+  }
+
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DrawBtcWinnerPage');
+  }
+
+  itemTapped($event, user) {
+    console.log(user.username);
+    this.selectedUser = user.username;
+  }
+
+  selectWinner() {
+    //winner will be current selected user
+    console.log("To post winner with " + this.selectedUser + " with gameId " + this.gameId);
+    this.dataProvider.postChooseGame1Winner(this.auth.getAccId(), this.gameId, this.selectedUser).subscribe(data => {
+      //parse response from server SUCCESS
+      console.log("Selected winner success");
+      let alert = this.alertCtrl.create({
+        title: data.message.toUpperCase(),
+        subTitle: 'Selected winner is ' + data.user + " with winning ticket number " + data.winningNo +".",
+        buttons: ['OK']
+      });
+
+      alert.present();
+    },
+      err => {
+        if (err.status === 0) {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'Server cannot be reached at this time. <br> Please try again later',
+            buttons: ['OK']
+          });
+
+          alert.present();
+          console.log("Hit Error 0");
+        }
+
+        else {
+          console.log("Error occured while selecting winner");
+        }
+
+        console.log(err);
+      });
+
+  }
+
+}

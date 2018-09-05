@@ -16,6 +16,7 @@ import { JackpotPage } from '../pages/jackpot/jackpot';
 import { HashingPage } from '../pages/hashing/hashing';
 import { BoptionsPage } from '../pages/boptions/boptions';
 import { DrawBtcWinnerPage } from '../pages/draw-btc-winner/draw-btc-winner';
+import { DrawEthWinnerPage } from '../pages/draw-eth-winner/draw-eth-winner';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DrawBtcWinnerPage } from '../pages/draw-btc-winner/draw-btc-winner';
     ListPage,
     JackpotPage,
     DrawBtcWinnerPage,
+    DrawEthWinnerPage,
     HashingPage,
     BoptionsPage
   
@@ -42,6 +44,7 @@ import { DrawBtcWinnerPage } from '../pages/draw-btc-winner/draw-btc-winner';
     ListPage,
     JackpotPage,
     DrawBtcWinnerPage,
+    DrawEthWinnerPage,
     HashingPage,
     BoptionsPage
   ],
