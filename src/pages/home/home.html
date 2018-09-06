@@ -9,6 +9,32 @@
 
 <ion-content padding>
   <h3 text-center>BGM Admin App</h3>
+  <div class="header">
+    <ion-row>
+      <ion-col col-12 text-center>
+        Today's Stake : 4321
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 text-center>
+        Today's Profits: 5000
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+
+  <ion-segment [(ngModel)]="viewType" color="secondary" (ionChange)="toggleSegment($event)">
+    <ion-segment-button outline value="Stakes">
+      Stakes
+    </ion-segment-button>
+    <ion-segment-button outline value="Profits">
+      Profits
+    </ion-segment-button>
+  </ion-segment>
+
+
+
   <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
   <!-- <ion-row>
     <ion-col col-12 text-center>

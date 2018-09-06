@@ -3,8 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import { GlobalAuthProvider } from '../global-auth/global-auth';
 
+//Login
 const serverHealthURL = 'http://178.128.50.224:3000';
 const loginUrl = 'http://178.128.50.224:3000/login/';
+
+//Stake & Profits
+const todayStakeURL = 'http://178.128.50.224:3000/admin/getStake';
+const todayProfitURL= 'http://178.128.50.224:3000/admin/getProfit';
 
 //For Game 1 APIs
 const createGame1URL='http://178.128.50.224:3000/game1/create';
@@ -23,6 +28,15 @@ export class DataProvider {
   //get server health for guest view
   getServerHealth(): Observable<any> {
     return this.http.get(serverHealthURL);
+  }
+
+  //Stake& Profits
+  getTodayStake(): Observable<any> {
+    return this.http.get(todayStakeURL);
+  }
+
+  getTodayProfit(): Observable<any> {
+    return this.http.get(todayProfitURL);
   }
 
   //login WITHOUT 2FA

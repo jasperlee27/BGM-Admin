@@ -8,9 +8,14 @@ import { GlobalAuthProvider } from '../../providers/global-auth/global-auth';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  viewType='Stakes';
 
   constructor(public navCtrl: NavController, private auth: GlobalAuthProvider) {
 
+  }
+
+  toggleSegment($event){
+    console.log("Chosen this tab " + $event.value)
   }
 
   logout(){
