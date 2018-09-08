@@ -12,12 +12,12 @@
   <div class="header">
     <ion-row>
       <ion-col col-12 text-center>
-        Today's Stake : 4321
+        Today's Profits : {{todayProfits}}
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-12 text-center>
-        Today's Profits: 5000
+        Today's Stakes : {{todayStakes}}
       </ion-col>
     </ion-row>
   </div>
@@ -25,21 +25,41 @@
 
 
   <ion-segment [(ngModel)]="viewType" color="secondary" (ionChange)="toggleSegment($event)">
-    <ion-segment-button outline value="Stakes">
-      Stakes
-    </ion-segment-button>
     <ion-segment-button outline value="Profits">
       Profits
     </ion-segment-button>
+    <ion-segment-button outline value="Stakes">
+      Stakes
+    </ion-segment-button>
   </ion-segment>
 
+  <div [ngSwitch]="viewType">
+    <!-- <ion-list *ngSwitchCase="'Profits'" ngSelected="selected"> -->
+    <ion-scroll scrollY="true">
+      <ion-list *ngSwitchCase="'Profits'" ngSelected="selected" col-12>
+        <ion-list-header no-lines text-color="light">
+          <span col-8 item-start>Username</span>
+          <span col-4 style="text-align:right;">W/L</span>
+        </ion-list-header>
+        <ion-item no-lines *ngFor="let user of profitsArray" (click)="itemTapped($event, user, 'profits')">
+          <span col-8 item-start style="font-size:14px">{{user.username}}</span>
+          <span col-4 style="font-size:14px; font-weight:700; text-align:right">{{user.profit}}</span>
+        </ion-item>
+      </ion-list>
+    <!-- </ion-scroll> -->
 
-
-  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
-  <!-- <ion-row>
-    <ion-col col-12 text-center>
-      <button ion-button (click)="logout()" small color="secondary" style="color:rgb(0, 0, 0); font-size:20px; font-weight: 800">Logout</button>
-    </ion-col>
-  </ion-row>
-  -->
+    <!-- <ion-list *ngSwitchCase="'Stakes'"> -->
+      <!-- <ion-scroll scrollY="true"> -->
+        <ion-list *ngSwitchCase="'Stakes'" ngSelected="selected" col-12>
+          <ion-list-header no-lines text-color="light">
+            <span col-8 item-start>Username</span>
+            <span col-4 style="text-align:right;">Stake</span>
+          </ion-list-header>
+          <ion-item no-lines *ngFor="let user of stakesArray" (click)="itemTapped($event, user, 'stakes')">
+            <span col-8 item-start style="font-size:14px">{{user.username}}</span>
+            <span col-4 style="font-size:14px; font-weight:700; text-align:right">{{user.stake}}</span>
+          </ion-item>
+        </ion-list>
+      </ion-scroll>
+  </div>
 </ion-content>

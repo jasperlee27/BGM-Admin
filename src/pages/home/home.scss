@@ -1,7 +1,9 @@
 page-home {
-    
-    $segment-button-ios-text-color: red;
-    
+
+    ion-scroll {
+        width:100%;
+        height:400px;
+    }
     .header{
         font-size:20px;
     }
