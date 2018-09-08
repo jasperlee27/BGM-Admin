@@ -36,6 +36,7 @@ export class DrawBtcWinnerPage {
         var user = {
           "username": data.data[i]._id,
           "count": data.data[i].count,
+          "selected": false
         }
         //push array
         this.potentialWinners.push(user);
@@ -69,7 +70,21 @@ export class DrawBtcWinnerPage {
 
   itemTapped($event, user) {
     console.log(user.username);
+    console.log("before select: " + user.selected);
+    // user.selected = true;
     this.selectedUser = user.username;
+
+    for (var i = 0; i < this.potentialWinners.length; i++) {
+      if (this.potentialWinners[i].username === user.username) {
+        this.potentialWinners[i].selected = true;
+      }
+      else {
+        this.potentialWinners[i].selected = false;
+      }
+    }
+
+    console.log("after loop select: " + user.selected);
+
   }
 
   selectWinner() {
@@ -80,7 +95,7 @@ export class DrawBtcWinnerPage {
       console.log("Selected winner success");
       let alert = this.alertCtrl.create({
         title: data.message.toUpperCase(),
-        subTitle: 'Selected winner is ' + data.user + " with winning ticket number " + data.winningNo +".",
+        subTitle: 'Selected winner is ' + data.user + " with winning ticket number " + data.winningNo + ".",
         buttons: ['OK']
       });
 

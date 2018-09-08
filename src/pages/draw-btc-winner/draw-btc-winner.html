@@ -35,7 +35,7 @@
             <span col-8 item-start>Username</span>
             <span col-4 style="text-align:right;">Tickets</span>
           </ion-list-header>
-          <ion-item no-lines *ngFor="let user of potentialWinners" (click)="itemTapped($event, user)">
+          <ion-item no-lines *ngFor="let user of potentialWinners" [ngClass]="user.selected ? 'selected' : 'unselected'" (click)="itemTapped($event, user)" >
             <span col-8 item-start style="font-size:14px">{{user.username}}</span>
             <span col-4 style="font-size:14px; font-weight:700; text-align:right">{{user.count}}</span>
           </ion-item>

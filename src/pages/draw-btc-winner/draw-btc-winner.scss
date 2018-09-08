@@ -7,5 +7,27 @@ page-draw-btc-winner {
         width:100%;
         height:300px;
     }
-    
+
+    ion-item:hover {
+        background-color: color($colors,primary);
+    }
+
+    ion-item:active{
+        // background-color: color($colors,primary);
+        color: color($colors,primary) !important;
+    }
+
+    ion-item .selected {
+        background-color: color($colors,primary);
+        color: red !important;
+    }
+
+    .selected{
+        background-color: color($colors,secondary);
+        color: black !important;
+    }
+
+    .unselected{
+        background-color: none !important;
+    }
 }
