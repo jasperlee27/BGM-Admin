@@ -10,6 +10,7 @@ import { GlobalAuthProvider } from '../providers/global-auth/global-auth';
 import { JackpotPage } from '../pages/jackpot/jackpot';
 import { HashingPage } from '../pages/hashing/hashing';
 import { BoptionsPage } from '../pages/boptions/boptions';
+import { TopUpsPage } from '../pages/top-ups/top-ups';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,6 +31,7 @@ export class MyApp {
       { title: 'Jackpot', component: JackpotPage },
       { title: 'Hashing', component: HashingPage },
       { title: 'Options', component: BoptionsPage },
+      { title: 'Top Ups', component: TopUpsPage},
       { title: 'Logout', component: null }
     ];
 

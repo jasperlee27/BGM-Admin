@@ -17,6 +17,7 @@ import { HashingPage } from '../pages/hashing/hashing';
 import { BoptionsPage } from '../pages/boptions/boptions';
 import { DrawBtcWinnerPage } from '../pages/draw-btc-winner/draw-btc-winner';
 import { DrawEthWinnerPage } from '../pages/draw-eth-winner/draw-eth-winner';
+import { TopUpsPage } from '../pages/top-ups/top-ups';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DrawEthWinnerPage } from '../pages/draw-eth-winner/draw-eth-winner';
     DrawBtcWinnerPage,
     DrawEthWinnerPage,
     HashingPage,
-    BoptionsPage
+    BoptionsPage,
+    TopUpsPage
   
   ],
   imports: [
@@ -46,7 +48,8 @@ import { DrawEthWinnerPage } from '../pages/draw-eth-winner/draw-eth-winner';
     DrawBtcWinnerPage,
     DrawEthWinnerPage,
     HashingPage,
-    BoptionsPage
+    BoptionsPage,
+    TopUpsPage
   ],
   providers: [
     StatusBar,

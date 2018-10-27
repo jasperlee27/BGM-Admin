@@ -19,6 +19,9 @@ const chooseGame1WinnerURL='http://178.128.50.224:3000/game1/chooseWinner';
 //For Game 3 APIs
 const game3PriceURL = 'http://178.128.50.224:3000/game3/setExitPrice';
 
+//For Topup APIs
+const adminTopUpsURL ='http://178.128.50.224:3000/admin/getPastWithDepTransactions';
+
 @Injectable()
 export class DataProvider {
 
@@ -74,7 +77,6 @@ export class DataProvider {
     return this.http.post(chooseGame1WinnerURL, requestBody, httpHeader);
   }
 
-
   //set ending price for game 3
   postGame3Price(accid, exitPrice): Observable<any> {
     const httpHeader = {
@@ -82,5 +84,14 @@ export class DataProvider {
     };
     var requestBody = new HttpParams().set("accid", accid).set("exitPrice", exitPrice);
     return this.http.post(game3PriceURL, requestBody, httpHeader);
+  }
+
+  postOutstandingTopups(accid): Observable<any> {
+    var sessionToken = this.auth.getSessionToken();
+    // console.log("session token posted " + sessionToken)
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" })};
+
+    var requestBody;
+    return this.http.post(adminTopUpsURL, requestBody, httpHeader);
   }
 }

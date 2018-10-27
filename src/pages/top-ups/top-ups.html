@@ -1,0 +1,62 @@
+<!--
+  Generated template for the TopUpsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Top Ups</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <ion-col col-md-4>
+      Username
+    </ion-col>
+    <ion-col col-md-2>
+      Token
+    </ion-col>
+    <ion-col col-md-3>
+      Amount
+    </ion-col>
+    <ion-col col-md-3>
+      Trans Type
+    </ion-col> -->
+  <ion-row>
+    <!-- Amount  -->
+    <ion-col col-md-3>
+      <span style="font-size:16px; font-weight:500; color:#32db64;">USERNAME</span>
+    </ion-col>
+    <!-- Bank Type -->
+    <ion-col col-md-3>
+      <span style="font-size:16px; font-weight:500; color:#32db64">TOKEN</span>
+    </ion-col>
+    <!-- Acc No. -->
+    <ion-col col-md-3>
+      <span style="font-size:16px; font-weight:500; color:#32db64">AMOUNT</span>
+    </ion-col>
+  </ion-row>
+
+
+  <form class="withdrawal-form" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <!-- Amount  -->
+    <ion-col col-3>
+      <input type="number" class="form-control" ngModel #amount name="amount" placeholder="Amount" required>
+    </ion-col>
+    <!-- Bank Type -->
+    <ion-col col-3>
+      <input type="text" class="form-control" ngModel #bankType name="bankType" placeholder="Bank Type" required>
+    </ion-col>
+    <!-- Acc No. -->
+    <ion-col col-3>
+      <input type="text" class="form-control" ngModel #accNo name="accNo" placeholder="Account No." maxlength="20" required>
+    </ion-col>
+    <button ion-button color="secondary" type="submit" [disabled]="!myForm.valid" style="color:black;">Submit Request</button>
+  </form>
+
+</ion-content>
