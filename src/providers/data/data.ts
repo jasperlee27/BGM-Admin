@@ -86,12 +86,14 @@ export class DataProvider {
     return this.http.post(game3PriceURL, requestBody, httpHeader);
   }
 
-  postOutstandingTopups(accid): Observable<any> {
+  postOutstandingTopups(username,token,amount,type): Observable<any> {
     var sessionToken = this.auth.getSessionToken();
+    var accId = this.auth.getAccId().toString();
+    // var accId = "555";
     // console.log("session token posted " + sessionToken)
     const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" })};
 
-    var requestBody;
+    var requestBody = new HttpParams().set("username", username).set("token",token).set("transType",type).set("amount",amount).set("accid", accId);
     return this.http.post(adminTopUpsURL, requestBody, httpHeader);
   }
 }

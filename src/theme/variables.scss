@@ -22,9 +22,6 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-
-
-
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -53,8 +50,9 @@ $list-ios-activated-background-color: #32db64;
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 $list-md-activated-background-color: #32db64;
-
-
+$checkbox-md-icon-background-color-on: #32db64;
+$checkbox-md-icon-border-color-on: #32db64;
+$checkbox-md-icon-checkmark-width:2px;
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here

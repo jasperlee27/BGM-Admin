@@ -27,36 +27,74 @@
     <ion-col col-md-3>
       Trans Type
     </ion-col> -->
-  <ion-row>
-    <!-- Amount  -->
-    <ion-col col-md-3>
-      <span style="font-size:16px; font-weight:500; color:#32db64;">USERNAME</span>
-    </ion-col>
-    <!-- Bank Type -->
-    <ion-col col-md-3>
-      <span style="font-size:16px; font-weight:500; color:#32db64">TOKEN</span>
-    </ion-col>
-    <!-- Acc No. -->
-    <ion-col col-md-3>
-      <span style="font-size:16px; font-weight:500; color:#32db64">AMOUNT</span>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+
+    <form class="withdrawal-form" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+      <ion-row>
+        <!-- Username  -->
+        <ion-col>
+          <ion-item no-lines>
+            <ion-label fixed style="color: #32db64">Username</ion-label>
+            <ion-input type="text" ngModel name="username"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item no-lines>
+            <ion-label fixed style="color: #32db64">Token</ion-label>
+            <ion-input no-lines type="text" ngModel name="token"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item no-lines>
+            <ion-label fixed style="color: #32db64">Amount</ion-label>
+            <ion-input type="number" ngModel name="amount"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center no-lines col-6>
+          <ion-label style="color: #32db64">Deposit</ion-label>
+          <ion-checkbox [(ngModel)]="isDepositChecked" name="deposit"></ion-checkbox>
+        </ion-col>
+
+        <ion-col text-center no-lines col-6>
+          <ion-label style="color: #32db64">Withdraw</ion-label>
+          <ion-checkbox [(ngModel)]="isWithdrawalChecked" name="withdraw"></ion-checkbox>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <button color="secondary" ion-button type="submit">
+            <span style="color:black; font-weight:600;">SUBMIT</span>
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
 
 
-  <form class="withdrawal-form" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-    <!-- Amount  -->
-    <ion-col col-3>
-      <input type="number" class="form-control" ngModel #amount name="amount" placeholder="Amount" required>
-    </ion-col>
-    <!-- Bank Type -->
-    <ion-col col-3>
-      <input type="text" class="form-control" ngModel #bankType name="bankType" placeholder="Bank Type" required>
-    </ion-col>
-    <!-- Acc No. -->
-    <ion-col col-3>
-      <input type="text" class="form-control" ngModel #accNo name="accNo" placeholder="Account No." maxlength="20" required>
-    </ion-col>
-    <button ion-button color="secondary" type="submit" [disabled]="!myForm.valid" style="color:black;">Submit Request</button>
-  </form>
+    <ion-list *ngFor="let trans of allTopUps" (click)="itemTapped($event, trans)" col-12>
+      <!-- <ion-list-header no-lines text-color="light">
+        <span col-4 item-start>Username</span>
+        <span col-4 style="text-align:right;">Tickets</span>
+      </ion-list-header> -->
+      <ion-item no-lines>
+        <ion-row>
+          <span col-12 style="font-size:20px; color:#32db64">Username: {{trans.username}}</span>
+        </ion-row>
+        <ion-row>
+          <span col-4 style="font-size:14px;">{{trans.token}}</span>
+          <span col-4 style="font-size:14px">Amt: {{trans.amount}}</span>
+          <span col-4 style="font-size:14px">Type: {{trans.type}}</span>
+        </ion-row>
+      </ion-item>
+    </ion-list>
 
+
+  </ion-grid>
 </ion-content>
