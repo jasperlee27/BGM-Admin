@@ -9,18 +9,20 @@ const loginUrl = 'http://178.128.50.224:3000/login/';
 
 //Stake & Profits
 const todayStakeURL = 'http://178.128.50.224:3000/admin/getStake';
-const todayProfitURL= 'http://178.128.50.224:3000/admin/getProfit';
+const todayProfitURL = 'http://178.128.50.224:3000/admin/getProfit';
 
 //For Game 1 APIs
-const createGame1URL='http://178.128.50.224:3000/game1/create';
-const game1WinnerListURL= 'http://178.128.50.224:3000/game1/getPotentialWinners';
-const chooseGame1WinnerURL='http://178.128.50.224:3000/game1/chooseWinner';
+const createGame1URL = 'http://178.128.50.224:3000/game1/create';
+const game1WinnerListURL = 'http://178.128.50.224:3000/game1/getPotentialWinners';
+const chooseGame1WinnerURL = 'http://178.128.50.224:3000/game1/chooseWinner';
 
 //For Game 3 APIs
 const game3PriceURL = 'http://178.128.50.224:3000/game3/setExitPrice';
 
 //For Topup APIs
-const adminTopUpsURL ='http://178.128.50.224:3000/admin/getPastWithDepTransactions';
+const adminTopUpsURL = 'http://178.128.50.224:3000/admin/getPastWithDepTransactions';
+const appDepositURL = 'http://178.128.50.224:3000/admin/updatedeposittransactions';
+const appWithdrawURL = 'http://178.128.50.224:3000/admin/updatewithdrawtransactions';
 
 @Injectable()
 export class DataProvider {
@@ -56,7 +58,7 @@ export class DataProvider {
     const httpHeader = {
       headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
     };
-    var requestBody = new HttpParams().set("accid", accid).set("type", type).set("totalAmount",totalAmount);
+    var requestBody = new HttpParams().set("accid", accid).set("type", type).set("totalAmount", totalAmount);
     return this.http.post(createGame1URL, requestBody, httpHeader);
   }
 
@@ -86,14 +88,36 @@ export class DataProvider {
     return this.http.post(game3PriceURL, requestBody, httpHeader);
   }
 
-  postOutstandingTopups(username,token,amount,type): Observable<any> {
+  postOutstandingTopups(username, token, amount, type): Observable<any> {
     var sessionToken = this.auth.getSessionToken();
     var accId = this.auth.getAccId().toString();
     // var accId = "555";
     // console.log("session token posted " + sessionToken)
-    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" })};
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }) };
 
-    var requestBody = new HttpParams().set("username", username).set("token",token).set("transType",type).set("amount",amount).set("accid", accId);
+    var requestBody = new HttpParams().set("username", username).set("token", token).set("transType", type).set("amount", amount).set("accid", accId);
     return this.http.post(adminTopUpsURL, requestBody, httpHeader);
+  }
+
+  postApproveDeposit(adminUser, password, transID): Observable<any> {
+    var sessionToken = this.auth.getSessionToken();
+    var accId = this.auth.getAccId().toString();
+
+    // console.log("session token posted " + sessionToken)
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }) };
+
+    var requestBody = new HttpParams().set("adminUser", adminUser).set("password", password).set("accid", accId).set("transID", transID);
+    return this.http.post(appDepositURL, requestBody, httpHeader);
+  }
+
+  postApproveWithdraw(adminUser, password, transID): Observable<any> {
+    var sessionToken = this.auth.getSessionToken();
+    var accId = this.auth.getAccId().toString();
+
+    // console.log("session token posted " + sessionToken)
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }) };
+
+    var requestBody = new HttpParams().set("adminUser", adminUser).set("password", password).set("accid", accId).set("transID", transID);
+    return this.http.post(appWithdrawURL, requestBody, httpHeader);
   }
 }

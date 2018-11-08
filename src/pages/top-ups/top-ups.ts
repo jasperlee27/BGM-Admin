@@ -53,7 +53,7 @@ export class TopUpsPage {
 
   getAllTransactions(username, token, amount, type) {
     this.allTopUps = new Array<any>();
-    this.dataProvider.postOutstandingTopups(username, token, amount, type).subscribe(data => {
+    this.dataProvider.postOutstandingTopups(username.toLowerCase(), token.toUpperCase(), amount, type).subscribe(data => {
       // receive successfully
 
       console.log("Acc id " + this.auth.getAccId());
@@ -67,15 +67,29 @@ export class TopUpsPage {
         var type = data.data[i].transType.substring(0, 3);
         var fullType = data.data[i].transType;
         var transId = data.data[i]._id;
+        var bankType = "";
+        var bankNum = "";
 
+        if (fullType.toUpperCase() === "WITHDRAWAL") {
+          bankType = data.data[i].bankType;
+          bankNum = data.data[i].bankNum;
+        }
+
+        else {
+          ;
+        }
         var singleTrans = {
           "username": username,
           "token": token,
           "amount": amount,
           "type": type,
           "transId": transId,
-          "fullType":fullType
+          "fullType": fullType,
+          "bankType": bankType,
+          "bankNum": bankNum
+
         }
+
         this.allTopUps.push(singleTrans);
       }
     },
@@ -88,86 +102,111 @@ export class TopUpsPage {
   itemTapped($event, trans) {
     console.log(trans.username);
     console.log("Trans ID " + trans.transId);
-    this.processTransaction(trans.username, trans.amount, trans.fullType);
+    this.processTransaction(trans.username, trans.amount, trans.fullType, trans.transId, trans.bankType, trans.bankNum);
   }
 
 
-  
-processTransaction(userReq, amount, type) {
 
-  type = type.toLowerCase();
+  processTransaction(userReq, amount, type, transId, bankType, bankNum) {
 
-  let alert = this.alertCtrl.create({
-    title: 'AUTHORIZATION',
-    message: 'Enter authorizing username and password to confirm ' + type + ' for user ' + userReq + ' for amount ' + amount,
-    inputs: [
-      {
-        name: 'Username',
-        placeholder: 'Username'
-      },
-      {
-        name: 'Password',
-        placeholder: 'Password'
-      },
-    ],
-    buttons: [
-      {
-        text: 'Cancel',
-        handler: (data) => {
-          console.log('Cancelled approval of ' + amount + ' to ' + userReq);
-        }
-      },
-      {
-        text: 'Submit',
-        handler: (data) => {
+    type = type.toLowerCase();
 
-          if (type==="deposit"){
-            //process deposit
+    var messageToDisplay = "";
+    if (type.toUpperCase() === "WITHDRAWAL"){
+      messageToDisplay="Have you transferred amount of " + amount + " to Bank " + bankType + " | " + bankNum + " ?";
+    }
 
-
+    else {
+      messageToDisplay = 'Enter authorizing username and password to confirm ' + type + ' for user ' + userReq + ' for amount ' + amount;
+    }
+    
+    let alert = this.alertCtrl.create({
+      title: 'AUTHORIZATION',
+      message: messageToDisplay,
+      inputs: [
+        {
+          name: 'Username',
+          placeholder: 'Username'
+        },
+        {
+          name: 'Password',
+          placeholder: 'Password'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: (data) => {
+            console.log('Cancelled approval of ' + amount + ' to ' + userReq);
           }
+        },
+        {
+          text: 'Submit',
+          handler: (data) => {
 
-          //withdrawal
-          else{
+            if (type === "deposit") {
+              //process deposit
+              this.dataProvider.postApproveDeposit(data.Username, data.Password, transId).subscribe(resReceived => {
+                //receive successfully
+                console.log("status " + data.status)
+                console.log("Successfully approved transaction of " + amount + ' & user now has ' + parseFloat(resReceived.userAccountValue).toFixed(1) + ' OT');
+                let alert = this.alertCtrl.create({
+                  title: 'Success',
+                  subTitle: 'User now has ' + parseFloat(resReceived.userAccountValue).toFixed(1) + ' OT',
+                  buttons: ['OK']
+                });
+                alert.present();
+                alert.onDidDismiss(() => {
+                  this.allTopUps = new Array<any>();
+                })
+              },
+                err => {
+                  console.log("Error occured while approving deposit");
+                  console.log(err);
+                  let alert = this.alertCtrl.create({
+                    title: 'Error',
+                    subTitle: 'Error occurred while approving deposit.<br>Please try again later.',
+                    buttons: ['OK']
+                  });
+                  alert.present();
+                });
 
+            }
+
+            //withdrawal
+            else {
+              this.dataProvider.postApproveWithdraw(data.Username, data.Password, transId).subscribe(resReceived => {
+                //receive successfully
+                console.log("status " + data.status)
+                console.log("Successfully approved transaction of " + amount + '. Please check you have transferred to user.');
+                let alert = this.alertCtrl.create({
+                  title: 'Success',
+                  subTitle: 'Please check that you have transferred to user.',
+                  buttons: ['OK']
+                });
+                alert.present();
+                alert.onDidDismiss(() => {
+                  this.allTopUps = new Array<any>();
+                })
+              },
+                err => {
+                  console.log("Error occured while approving withdrawal");
+                  console.log(err);
+                  let alert = this.alertCtrl.create({
+                    title: 'Error',
+                    subTitle: 'Error occurred while approving withdrawal.<br>Please try again later.',
+                    buttons: ['OK']
+                  });
+                  alert.present();
+                });
+            }
           }
- 
-          // this.dataProvider.postReqDeposit(this.auth.getAccId(), data.Amount).subscribe(resReceived => {
-          //   //receive successfully
-          //   console.log("deposit status " + resReceived.status + " with token: " + resReceived.transaction.token);
-          //   this.updateOutstandingTopups();
-          //   console.log("status " + data.status)
-          //   let alert = this.alertCtrl.create({
-          //     title: 'Success',
-          //     subTitle: 'Your deposit request of ' + data.Amount + ' OT is successful. <br><br>Token ID: <span style="font-size:30px; font-weight:bolder"> ' + resReceived.transaction.token + '</span>'
-          //     +'<br><br>Please include your token ID in "Comments" when transferring to <br>[Bank Acc Details]',
-          //     buttons: ['OK']
-          //   });
-          //   alert.present();
-          //   // alert.onDidDismiss(() => {
-          //   // })
-
-          // },
-          //   err => {
-          //     console.log("Error occured while requesting deposit");
-          //     console.log(err);
-          //     let alert = this.alertCtrl.create({
-          //       title: 'Error',
-          //       subTitle: 'Error occurred while requesting deposit.<br>Please try again later.',
-          //       buttons: ['OK']
-          //     });
-          //     alert.present();
-          //   });
         }
-      }
-    ]
-  });
+      ]
+    });
 
-  alert.present();
-}
-
-
-
+    alert.present();
+  }
 
 }
 
