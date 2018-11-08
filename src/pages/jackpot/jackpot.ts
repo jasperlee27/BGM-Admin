@@ -81,6 +81,7 @@ export class JackpotPage {
         buttons: ['OK']
       });
       alert.present();
+      this,this.updateGameStatus();
     },
       err => {
         if (err.status === 0) {

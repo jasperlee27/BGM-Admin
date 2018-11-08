@@ -66,67 +66,63 @@ export class DataProvider {
   
   //create new game for game 1
   postCreateGame1(accid, type, totalAmount): Observable<any> {
-    const httpHeader = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-    };
+    var sessionToken = this.auth.getSessionToken().toString();
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
     var requestBody = new HttpParams().set("accid", accid).set("type", type).set("totalAmount", totalAmount);
     return this.http.post(createGame1URL, requestBody, httpHeader);
   }
 
   //get potential winenrs list to choose from
   postPotentialWinnersList(accid, type): Observable<any> {
-    const httpHeader = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-    };
+    var sessionToken = this.auth.getSessionToken().toString();
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
     var requestBody = new HttpParams().set("accid", accid).set("type", type);
     return this.http.post(game1WinnerListURL, requestBody, httpHeader);
   }
 
   postChooseGame1Winner(accid, gameId, username): Observable<any> {
-    const httpHeader = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-    };
+    var sessionToken = this.auth.getSessionToken().toString();
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
     var requestBody = new HttpParams().set("accid", accid).set("gameId", gameId).set("username", username);
     return this.http.post(chooseGame1WinnerURL, requestBody, httpHeader);
   }
 
   //set ending price for game 3
   postGame3Price(accid, exitPrice): Observable<any> {
-    const httpHeader = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
-    };
+    var sessionToken = this.auth.getSessionToken().toString();
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
     var requestBody = new HttpParams().set("accid", accid).set("exitPrice", exitPrice);
     return this.http.post(game3PriceURL, requestBody, httpHeader);
   }
 
   postOutstandingTopups(username, token, amount, type): Observable<any> {
-    var sessionToken = this.auth.getSessionToken();
+    var sessionToken = this.auth.getSessionToken().toString();
     var accId = this.auth.getAccId().toString();
     // var accId = "555";
     // console.log("session token posted " + sessionToken)
-    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }) };
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
 
     var requestBody = new HttpParams().set("username", username).set("token", token).set("transType", type).set("amount", amount).set("accid", accId);
     return this.http.post(adminTopUpsURL, requestBody, httpHeader);
   }
 
   postApproveDeposit(adminUser, password, transID): Observable<any> {
-    var sessionToken = this.auth.getSessionToken();
+    var sessionToken = this.auth.getSessionToken().toString();
     var accId = this.auth.getAccId().toString();
 
     // console.log("session token posted " + sessionToken)
-    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }) };
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
 
     var requestBody = new HttpParams().set("adminUser", adminUser).set("password", password).set("accid", accId).set("transID", transID);
     return this.http.post(appDepositURL, requestBody, httpHeader);
   }
 
   postApproveWithdraw(adminUser, password, transID): Observable<any> {
-    var sessionToken = this.auth.getSessionToken();
+    var sessionToken = this.auth.getSessionToken().toString();
     var accId = this.auth.getAccId().toString();
 
     // console.log("session token posted " + sessionToken)
-    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }) };
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
 
     var requestBody = new HttpParams().set("adminUser", adminUser).set("password", password).set("accid", accId).set("transID", transID);
     return this.http.post(appWithdrawURL, requestBody, httpHeader);
