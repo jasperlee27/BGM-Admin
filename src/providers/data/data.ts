@@ -12,6 +12,7 @@ const todayStakeURL = 'http://178.128.50.224:3000/admin/getStake';
 const todayProfitURL = 'http://178.128.50.224:3000/admin/getProfit';
 
 //For Game 1 APIs
+const jackpotstatusURL = 'http://178.128.50.224:3000/game1/getCurrentGame';
 const createGame1URL = 'http://178.128.50.224:3000/game1/create';
 const game1WinnerListURL = 'http://178.128.50.224:3000/game1/getPotentialWinners';
 const chooseGame1WinnerURL = 'http://178.128.50.224:3000/game1/chooseWinner';
@@ -44,6 +45,7 @@ export class DataProvider {
     return this.http.get(todayProfitURL);
   }
 
+  
   //login WITHOUT 2FA
   postLogin(username, password): Observable<any> {
     const httpHeader = {
@@ -53,6 +55,15 @@ export class DataProvider {
     return this.http.post(loginUrl, requestBody, httpHeader);
   }
 
+  postJackpotStatus(): Observable<any> {
+    var sessionToken = this.auth.getSessionToken();
+    console.log("session token posted " + sessionToken)
+    const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" })};
+
+    var requestBody = new HttpParams().set("accid", "guest");
+    return this.http.post(jackpotstatusURL, requestBody, httpHeader);
+  }
+  
   //create new game for game 1
   postCreateGame1(accid, type, totalAmount): Observable<any> {
     const httpHeader = {

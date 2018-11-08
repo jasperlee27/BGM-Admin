@@ -20,12 +20,43 @@ import { DrawEthWinnerPage } from '../draw-eth-winner/draw-eth-winner';
 export class JackpotPage {
   amountBTCtix;
   amountETHtix;
-
+  currETHGameID;
+  currBTCGameID;
+  currBTCtix;
+  totalBTCtix;
+  currETHtix;
+  totalETHtix;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, private auth: GlobalAuthProvider, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad JackpotPage');
+  }
+
+  ionViewWillEnter(){
+    this.updateGameStatus();
+  }
+
+
+  updateGameStatus(){
+    this.dataProvider.postJackpotStatus().subscribe(data => {
+      if (data.status === 200) {
+        //BTC updates
+        this.currBTCGameID = data.data[1].gameName;
+        this.currBTCtix = data.data[1].currentAmount;
+        this.totalBTCtix = data.data[1].totalAmount;
+
+        //ETH updates
+        this.currETHGameID = data.data[0].gameName;
+        this.currETHtix = data.data[0].currentAmount;
+        this.totalETHtix = data.data[0].totalAmount;
+      }
+    },
+      err => {
+        console.log("Error occured while retrieving game 1 status");
+        console.log(err);
+      });
   }
 
   createGame(type: String) {

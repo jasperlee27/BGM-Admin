@@ -19,11 +19,21 @@
 
     <ion-card>
       <ion-row>
-        <ion-col col-12 text-center>
+        <ion-col col-4 style="padding-left:16px">
           BITCOIN
-          <br>
-          <br>
+        </ion-col>
+        <ion-col col-8 style="padding-left:16px">
+          Current Game:&nbsp;&nbsp;{{currBTCGameID}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-4>
           <ion-img width="100" height="100" src="../assets/imgs/Bitcoin.png" style=background:transparent></ion-img>
+        </ion-col>
+        <ion-col text-center col-8 style="padding-left:24px; padding-top:32px; font-size:32px">
+          <span style="color:#32db64">{{currBTCtix}}</span> /
+          <span style="font-size:18px">{{totalBTCtix}}</span>
         </ion-col>
       </ion-row>
 
@@ -45,26 +55,37 @@
     <br>
     <ion-card>
       <ion-row>
-        <ion-col col-12 text-center>
+        <ion-col col-4 style="padding-left:16px">
           ETHEREUM
-          <br>
-          <br>
-          <ion-img width="100" height="100" src="../assets/imgs/ethereum.png" style=background:transparent></ion-img>
+        </ion-col>
+        <ion-col col-8 style="padding-left:16px">
+          Current Game:&nbsp;&nbsp;{{currETHGameID}}
         </ion-col>
       </ion-row>
+
       <ion-row>
-          <ion-col col-5>
-            <ion-input type="number" [(ngModel)]="amountETHtix" placeholder="Amount Tix"></ion-input>
-          </ion-col>
-          <ion-col col-7 text-center>
-            <button id="rounded" ion-button full color="secondary" small (click)="createGame('ETH')" style="color:#222; font-weight: 600;">CREATE GAME</button>
-          </ion-col>
-        </ion-row>
-  
-        <ion-row>
-          <button id="rounded" ion-button full color="secondary" small (click)="chooseWinner('ETH')" style="color:#222; font-weight: 600;">CHOOSE WINNER</button>
-        </ion-row>
-  
+        <ion-col col-4>
+          <ion-img width="100" height="100" src="../assets/imgs/ethereum.png" style=background:transparent></ion-img>
+        </ion-col>
+        <ion-col text-center col-8 style="padding-left:24px; padding-top:32px; font-size:32px">
+          <span style="color:#32db64">{{currETHtix}}</span> /
+          <span style="font-size:18px">{{totalETHtix}}</span>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-5>
+          <ion-input type="number" [(ngModel)]="amountETHtix" placeholder="Amount Tix"></ion-input>
+        </ion-col>
+        <ion-col col-7 text-center>
+          <button id="rounded" ion-button full color="secondary" small (click)="createGame('ETH')" style="color:#222; font-weight: 600;">CREATE GAME</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <button id="rounded" ion-button full color="secondary" small (click)="chooseWinner('ETH')" style="color:#222; font-weight: 600;">CHOOSE WINNER</button>
+      </ion-row>
+
     </ion-card>
 
 
