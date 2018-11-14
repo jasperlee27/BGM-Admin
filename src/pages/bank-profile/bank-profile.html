@@ -11,5 +11,34 @@
 
 
 <ion-content padding>
-  Bank account details :
+  Current bank account details :
+  <form class="withdrawal-form" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <ion-row>
+      <!-- Username  -->
+      <ion-col>
+        <ion-item no-lines>
+          <ion-label fixed style="color: #32db64">Bank Type</ion-label>
+          <ion-input type="text" ngModel name="bankType"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item no-lines>
+          <ion-label fixed style="color: #32db64">Bank Num</ion-label>
+          <ion-input no-lines type="text" ngModel name="bankNum"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col text-center>
+        <button color="secondary" ion-button full type="submit">
+          <span style="color:black; font-weight:600;">Update Details</span>
+        </button>
+      </ion-col>
+    </ion-row>
+  </form>
+
 </ion-content>

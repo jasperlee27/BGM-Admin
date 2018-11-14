@@ -22,4 +22,8 @@ export class BankProfilePage {
     console.log('ionViewDidLoad BankProfilePage');
   }
 
+  onSubmit(myForm){
+    console.log("Submitting " + JSON.stringify(myForm.value));
+  }
+
 }
