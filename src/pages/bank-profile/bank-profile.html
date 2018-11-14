@@ -11,10 +11,20 @@
 
 
 <ion-content padding>
-  Current bank account details :
+  <ion-row>
+    <ion-col col-12 text-center style="color:#32db64; font-size:16px;">
+      Current bank account details
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-12 text-center style=" font-size:20px;">
+      {{bankType}}&nbsp;{{bankDetails}}
+    </ion-col>
+  </ion-row>
   <form class="withdrawal-form" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
     <ion-row>
-      <!-- Username  -->
+      <!-- Bank Type -->
       <ion-col>
         <ion-item no-lines>
           <ion-label fixed style="color: #32db64">Bank Type</ion-label>
@@ -22,7 +32,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
-
+    <!-- Bank Num -->
     <ion-row>
       <ion-col>
         <ion-item no-lines>

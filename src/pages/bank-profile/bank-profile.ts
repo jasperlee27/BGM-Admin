@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data';
+import { GlobalAuthProvider } from '../../providers/global-auth/global-auth';
 
 /**
  * Generated class for the BankProfilePage page.
@@ -15,15 +17,52 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BankProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  bankType = "";
+  bankDetails = "";
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, private auth: GlobalAuthProvider, private alertCtrl: AlertController) {
+  }
+
+  ionViewWillEnter() {
+    this.getCurrDetails();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BankProfilePage');
   }
 
-  onSubmit(myForm){
-    console.log("Submitting " + JSON.stringify(myForm.value));
+  getCurrDetails() {
+    this.dataProvider.postCurrentBDetails(this.auth.getAccId()).subscribe(data => {
+      //parse response from server 
+      this.bankType = data.bankType;
+      this.bankDetails = data.bankDetails;
+
+    },
+      err => {
+        console.log(err);
+      });
+  }
+
+  onSubmit(myForm) {
+    // console.log("Submitting " + JSON.stringify(myForm.value));
+    this.updateBDetails(myForm.value.bankType, myForm.value.bankNum);
+  }
+
+  updateBDetails(bType, bDetails) {
+    this.dataProvider.postSetBDetails(this.auth.getAccId(), bType, bDetails).subscribe(data => {
+      //parse response from server 
+      this.bankType = data.bankType;
+      this.bankDetails = data.bankDetails;
+      let alert = this.alertCtrl.create({
+        title: 'SUCCESS',
+        subTitle: 'Bank Details Updated',
+        buttons: ['OK']
+      });
+      alert.present();
+    },
+      err => {
+        console.log(err);
+      });
   }
 
 }

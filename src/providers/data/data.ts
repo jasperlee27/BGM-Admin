@@ -25,6 +25,10 @@ const adminTopUpsURL = 'http://178.128.50.224:3000/admin/getPastWithDepTransacti
 const appDepositURL = 'http://178.128.50.224:3000/admin/updatedeposittransactions';
 const appWithdrawURL = 'http://178.128.50.224:3000/admin/updatewithdrawtransactions';
 
+//B Details
+const getBdetailsURL = 'http://178.128.50.224:3000/admin/getBankDetails';
+const setBdetailsURL = 'http://178.128.50.224:3000/admin/setBankDetails';
+
 @Injectable()
 export class DataProvider {
 
@@ -127,4 +131,19 @@ export class DataProvider {
     var requestBody = new HttpParams().set("adminUser", adminUser).set("password", password).set("accid", accId).set("transID", transID);
     return this.http.post(appWithdrawURL, requestBody, httpHeader);
   }
+
+    //get current b details
+    postCurrentBDetails(accid): Observable<any> {
+      var sessionToken = this.auth.getSessionToken().toString();
+      const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
+      var requestBody = new HttpParams().set("accid", accid);
+      return this.http.post(getBdetailsURL, requestBody, httpHeader);
+    }
+
+    postSetBDetails(accid, bankType, bankDetails): Observable<any> {
+      var sessionToken = this.auth.getSessionToken().toString();
+      const httpHeader = { headers: new HttpHeaders({ "Content-Type'": "application/x-www-form-urlencoded" }).append('x-access-token', sessionToken)};
+      var requestBody = new HttpParams().set("accid", accid).set("bankType",bankType).set("bankDetails",bankDetails);
+      return this.http.post(setBdetailsURL, requestBody, httpHeader);
+    }
 }
