@@ -11,6 +11,7 @@ import { JackpotPage } from '../pages/jackpot/jackpot';
 import { HashingPage } from '../pages/hashing/hashing';
 import { BoptionsPage } from '../pages/boptions/boptions';
 import { TopUpsPage } from '../pages/top-ups/top-ups';
+import { BankProfilePage } from '../pages/bank-profile/bank-profile'
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +32,8 @@ export class MyApp {
       { title: 'Jackpot', component: JackpotPage },
       { title: 'Hashing', component: HashingPage },
       { title: 'Options', component: BoptionsPage },
-      { title: 'Top Ups', component: TopUpsPage},
+      { title: 'Top Ups', component: TopUpsPage },
+      { title: 'Bank Details', component: BankProfilePage },
       { title: 'Logout', component: null }
     ];
 
@@ -51,7 +53,7 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     if (page.component) {
       this.nav.setRoot(page.component);
-    } 
+    }
     else {
       this.auth.destroySessionToken();
       console.log("Logout called here " + this.auth.getSessionToken());

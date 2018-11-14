@@ -18,6 +18,7 @@ import { BoptionsPage } from '../pages/boptions/boptions';
 import { DrawBtcWinnerPage } from '../pages/draw-btc-winner/draw-btc-winner';
 import { DrawEthWinnerPage } from '../pages/draw-eth-winner/draw-eth-winner';
 import { TopUpsPage } from '../pages/top-ups/top-ups';
+import { BankProfilePage } from '../pages/bank-profile/bank-profile'
 
 @NgModule({
   declarations: [
@@ -30,8 +31,8 @@ import { TopUpsPage } from '../pages/top-ups/top-ups';
     DrawEthWinnerPage,
     HashingPage,
     BoptionsPage,
-    TopUpsPage
-  
+    TopUpsPage,
+    BankProfilePage
   ],
   imports: [
     BrowserModule,
@@ -49,14 +50,15 @@ import { TopUpsPage } from '../pages/top-ups/top-ups';
     DrawEthWinnerPage,
     HashingPage,
     BoptionsPage,
-    TopUpsPage
+    TopUpsPage,
+    BankProfilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     DataProvider,
     GlobalAuthProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

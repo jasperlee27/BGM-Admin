@@ -21,7 +21,7 @@ export class LoginPage {
   passwordType: string = 'password';
   passwordIcon: string = 'eye';
   usernameInput: string = 'admin';
-  passwordInput: string = 'admin';
+  passwordInput: string = 'password';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private dataProvider: DataProvider, private auth: GlobalAuthProvider, private alertCtrl: AlertController) {
   }
